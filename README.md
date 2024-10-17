@@ -1,2 +1,3 @@
 # NodeJS-Practice
-Practicing Node JS and Express JS
+
+Advance backend development using Node JS and Express JS

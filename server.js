@@ -1,26 +1,34 @@
 import http from "http";
-
+import fs from "fs/promises";
+import url from "url";
+import path from "path";
 const PORT = process.env.PORT;
 
-const server = http.createServer((req, res) => {
+const __filename = url.fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+console.log("File paths:\n", __filename, "\n", __dirname);
+
+const server = http.createServer(async (req, res) => {
   try {
     if (req.method === "GET") {
-      if (req.url === "/") {
-        res.writeHead(200, { "Content-Type": "text/html" });
-        res.end("<h1> I am Home </>");
-      } else if (req.url === "/about") {
-        res.writeHead(200, { "Content-Type": "text/html" });
-        res.end("<h1> I am about page </>");
+      let filepath;
+      if (req.url === "/about") {
+        filepath = path.join(__dirname, "public", "about.html");
       } else if (req.url === "/contact") {
-        res.writeHead(200, { "Content-Type": "text/html" });
-        res.end("<h1> I am contact page </>");
+        filepath = path.join(__dirname, "public", "contact.html");
+      } else {
+        throw new Error("Not Found");
       }
+      const data = await fs.readFile(filepath);
+      res.write(data);
+      res.end();
     } else {
       throw new Error("Method not allowed");
     }
   } catch (error) {
     res.writeHead(500, { "Content-Type": "text" });
-    res.end("server error"); // this is basically res.end on the browser page so it will not error it will only accept string
+    res.end("server error");
   }
 });
 

@@ -1,15 +1,35 @@
-// setting up the server
-import http from "http"; // mkaing an http server
+import http from "http";
+import fs from "fs/promises";
+import url from "url";
+import path from "path";
+const PORT = process.env.PORT;
 
-const PORT = 8000;
+const __filename = url.fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-const server = http.createServer((req, res) => {
-  // res.write("Hello World");
-  // res.setHeader("Content-Type", "text/html"); //sending header to the server
-  // res.statusCode = 404; // witht the status code of 404
-  res.writeHead(500, { "Content-Type": "application/json" });
-  res.end(JSON.stringify({ message: "Server Error" }));
-  // res.end("<h1> Hello World </>"); //dont need to write first
+console.log("File paths:\n", __filename, "\n", __dirname);
+
+const server = http.createServer(async (req, res) => {
+  try {
+    if (req.method === "GET") {
+      let filepath;
+      if (req.url === "/about") {
+        filepath = path.join(__dirname, "public", "about.html");
+      } else if (req.url === "/contact") {
+        filepath = path.join(__dirname, "public", "contact.html");
+      } else {
+        throw new Error("Not Found");
+      }
+      const data = await fs.readFile(filepath);
+      res.write(data);
+      res.end();
+    } else {
+      throw new Error("Method not allowed");
+    }
+  } catch (error) {
+    res.writeHead(500, { "Content-Type": "text" });
+    res.end("server error");
+  }
 });
 
 server.listen(PORT, () => {

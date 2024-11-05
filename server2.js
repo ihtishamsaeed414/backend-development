@@ -37,6 +37,24 @@ const usersByIdHandler = (req, res) => {
   }
   res.end();
 };
+// POST middlware for users
+const createUsersHandler = (req, res) => {
+  let body = "";
+  // listen for data
+  req.on("data", (chunk) => {
+    body += chunk.toString();
+  });
+
+  req.on("end", () => {
+    //the on method is on req not response
+    const newUser = JSON.parse(body); //converting JSON to javascript object
+    users.push(newUser); //idealy will send this to mongodb
+    res.statusCode = 201;
+    res.write(JSON.stringify(newUser)); //it is basically a server response that something is created
+    res.end();
+  });
+};
+
 // Not founder middleware
 const notFoundHandler = (req, res) => {
   res.statusCode = 404;
@@ -54,6 +72,8 @@ const server = createServer((req, res) => {
         req.method === "GET"
       ) {
         usersByIdHandler(req, res);
+      } else if (req.url === "/api/users" && req.method === "POST") {
+        createUsersHandler(req, res); //calling the middleware with sending req, res
       } else {
         notFoundHandler(req, res);
       }

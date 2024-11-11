@@ -1,16 +1,17 @@
 import express from "express";
+import path from "path";
+import { fileURLToPath } from "url";
 const app = express();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Simple Get method routes
 app.get("/", (req, res) => {
-  // Here now we dont need to specify text
-  //   res.send("Hello world");
-  //   res.send("<h1>Hello world</h1>");
-  //   res.send({ message: "Hellow world" }); //we can also send json
-  res.send("Checking the watch flag");
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-app.get("/about", (req, res) => {
-  res.send("This is the about page");
+app.get("/contact", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "contact.html"));
 });
 app.listen(8000, () => console.log(`Server is running on port 8000`));

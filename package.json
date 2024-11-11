@@ -5,7 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon --env-file=.env server2.js"
+    "start": "node server3",
+    "dev": "node --watch server3"
   },
   "author": "ihtisham saeed",
   "license": "ISC",

@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node server3",
-    "dev": "node --watch server3"
+    "dev": "node --watch --env-file=.env server3"
   },
   "author": "ihtisham saeed",
   "license": "ISC",

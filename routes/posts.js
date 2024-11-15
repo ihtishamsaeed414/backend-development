@@ -6,8 +6,17 @@ let posts = [
   { id: 3, title: "Post three" },
 ];
 
+// Middleware, it has access to the req and response
+const logger = (req, res, next) => {
+  console.log(
+    `${req.method} ${req.protocol}://${req.get("host")}${req.originalUrl}`
+  );
+  next();
+};
+
 // http://localhost:8080/api/posts?limit=2
-router.get("/", (req, res) => {
+// Read Request to get all post
+router.get("/", logger, (req, res) => {
   console.log(req.query);
   const limit = parseInt(req.query.limit);
   if (!isNaN(limit) && limit > 0) {

@@ -13,13 +13,19 @@ app.get("/api/posts", (req, res) => {
   console.log(req.query);
   const limit = parseInt(req.query.limit);
   if (!isNaN(limit) && limit > 0) {
-    res.json(posts.slice(0, limit));
-  } else {
-    res.json(posts);
+    return res.status(200).json(posts.slice(0, limit));
   }
+  res.status(200).json(posts);
 });
 app.get("/api/posts/:id", (req, res) => {
   const id = parseInt(req.params.id);
-  res.json(posts.filter((post) => post.id === id));
+  const post = posts.find((post) => post.id === id);
+
+  if (!post) {
+    return res
+      .status(404)
+      .json({ msg: `A post with the id of ${id} was not found` });
+  }
+  res.status(200).json(post);
 });
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));

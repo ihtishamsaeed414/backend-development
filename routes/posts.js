@@ -25,7 +25,7 @@ router.get("/:id", (req, res) => {
   if (!post) {
     return res
       .status(404)
-      .json({ msg: `A post with the id of ${id} was not found` });
+      .json({ msg: `A post with the id of ${id} was not found!` });
   }
   res.status(200).json(post);
 });

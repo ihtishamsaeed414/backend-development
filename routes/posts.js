@@ -1,79 +1,26 @@
 import express from "express";
 const router = express.Router();
-
-let posts = [
-  { id: 1, title: "Post one" },
-  { id: 2, title: "Post two" },
-  { id: 3, title: "Post three" },
-];
+import {
+  createPost,
+  deletePost,
+  getPost,
+  getPosts,
+  updatePost,
+} from "../controller/postController.js";
 
 // http://localhost:8080/api/posts?limit=2
 // Read Request to get all post
-router.get("/", (req, res, next) => {
-  const limit = parseInt(req.query.limit);
-  if (!isNaN(limit) && limit > 0) {
-    return res.status(200).json(posts.slice(0, limit));
-  }
-  res.status(200).json(posts);
-});
+router.get("/", getPosts);
 
 // Read Request
-router.get("/:id", (req, res, next) => {
-  const id = parseInt(req.params.id);
-  const post = posts.find((post) => post.id === id);
-
-  if (!post) {
-    const error = new Error(`A post with the id of ${id} was not found!`);
-    error.status = 404; //error objext has a status property
-    return next(error);
-  }
-  res.status(200).json(post);
-});
+router.get("/:id", getPost);
 
 // Create request
-router.post("/", (req, res, next) => {
-  //   console.log(req.body);
-  const newPost = {
-    id: posts.length + 1,
-    title: req.body.title,
-  };
-
-  if (!newPost.title) {
-    const error = new Error(`Please include a title`);
-    error.status = 400;
-    return next(error);
-  }
-  posts.push(newPost);
-  res.status(201).json(posts);
-});
+router.post("/", createPost);
 
 // Update Request
-router.put("/:id", (req, res, next) => {
-  const id = parseInt(req.params.id);
-
-  const post = posts.find((post) => post.id === id);
-
-  if (!post) {
-    const error = new Error(`A post with the id of ${id} was not found!`);
-    error.status = 400; //error objext has a status property
-    return next(error);
-  }
-  post.title = req.body.title;
-  res.status(200).json(posts);
-});
+router.put("/:id", updatePost);
 
 // Delete Request
-router.delete("/:id", (req, res, next) => {
-  const id = parseInt(req.params.id);
-
-  let post = posts.find((post) => post.id === id);
-
-  if (!post) {
-    const error = new Error(`A post with the id of ${id} was not found!`);
-    error.status = 400;
-    return next(error);
-  }
-  posts = posts.filter((post) => post.id !== id);
-  res.status(200).json(posts);
-});
+router.delete("/:id", deletePost);
 export default router;

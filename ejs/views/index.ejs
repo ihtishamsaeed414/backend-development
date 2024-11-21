@@ -3,10 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Welcome</title>
+    <title><%= title %></title>
   </head>
   <body>
     <!-- Our server is now running ejs -->
-    <h1>Welcome to ejs</h1>
+    <h1><%= message %></h1>
+    <ul>
+      <% people.forEach(person => { %>
+      <li><%= person %></li>
+      <% }); %>
+    </ul>
   </body>
 </html>

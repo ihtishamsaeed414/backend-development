@@ -8,7 +8,12 @@ app.set("view engine", "ejs");
 app.set("views", "views"); // setting the views as a folder for ejs
 
 app.get("/", (req, res) => {
-  res.render("index"); //look for the index
+  // assume the data from database
+  res.render("index", {
+    title: "my website", //custome title
+    message: "Hello from EJS",
+    people: ["khan", "ali"], // we can also send array
+  }); //look for the index
 });
 
 app.listen(PORT, () => {

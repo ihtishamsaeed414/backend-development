@@ -1,5 +1,2 @@
-#node_modules
-node_modules/
-
-#Enviromental variables
-.env
+NodeJS-ExpressJS-fundamentals/
+/NodeJS-ExpressJS-fundamentals

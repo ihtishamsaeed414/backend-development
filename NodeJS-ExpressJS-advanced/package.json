@@ -1,18 +1,14 @@
 {
-  "name": "node-js-engine",
+  "name": "nodejs-expressjs-advanced",
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "start": "node app",
-    "dev": "node --watch app"
+    "dev": "node --watch --env-file=.env app"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "ejs": "^3.1.10",
-    "express": "^4.21.1"
-  }
+  "description": ""
 }

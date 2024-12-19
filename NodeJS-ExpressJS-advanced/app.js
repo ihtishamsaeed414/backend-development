@@ -17,7 +17,7 @@ fs.readFile("./Text/input.txt", "utf-8", (err, data) => {
 
 fs.writeFile(
   "./Text/asyncWrite.txt",
-  "I am asyncrhonous function calling",
+  "I am asyncrhonous func.",
   "utf-8",
   (err) => {
     console.log("The data has been written successfully");

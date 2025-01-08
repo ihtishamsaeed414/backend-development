@@ -20,7 +20,7 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(3000, "127.0.0.1", () => {
-  console.log("Server is running on the port", 3000);
+  console.log("Server is running on the port:", 3000);
 });
 
-// in our routing and browser routing if we want to open a file it has nothing to do with file system in our directory we have to send special request for that file for the browser
+// In our routing and browser routing if we want to open a file it has nothing to do with file system in our directory we have to send special request for that file for the browser

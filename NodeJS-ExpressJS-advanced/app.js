@@ -15,10 +15,9 @@ const server = http.createServer((req, res) => {
       "Content-type": "text/html",
       "my-own-header": "hello-world",
     });
-    res.end("<h1> Page not found! <h1/>"); //this response must come after the header
+    res.end("<h2> Page not found! <h2/>"); //this response must come after the header
   }
 });
-
 server.listen(3000, "127.0.0.1", () => {
   console.log("Server is running on the port:", 3000);
 });

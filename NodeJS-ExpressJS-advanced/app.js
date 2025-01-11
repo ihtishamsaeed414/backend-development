@@ -15,11 +15,11 @@ const server = http.createServer((req, res) => {
       "Content-type": "text/html",
       "my-own-header": "hello-world",
     });
-    res.end("<h2> Page not found! <h2/>"); //this response must come after the header
+    res.end("<h2> Page not found ?<h2/>"); //this response must come after the header
   }
 });
 server.listen(3000, "127.0.0.1", () => {
-  console.log("Server is running on the port:", 3000);
+  console.log("Server is up on the port:", 3000);
 });
 
 // In our routing and browser routing if we want to open a file it has nothing to do with file system in our directory we have to send special request for that file for the browser

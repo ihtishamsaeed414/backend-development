@@ -8,7 +8,7 @@ const server = http.createServer((req, res) => {
     res.end("This is overview page");
   } else if (pathName === "/product") {
     console.log("hi");
-    res.end("This is product page");
+    res.end("This is product page:::::");
   } else {
     res.writeHead(404, {
       //The browser is now expecting the type of content in the header, html in this case

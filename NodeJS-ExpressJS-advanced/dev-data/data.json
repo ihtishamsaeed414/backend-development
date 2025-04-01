@@ -1,0 +1,53 @@
+[
+    {
+      "id": 1,
+      "name": "Wireless Headphones",
+      "category": "Electronics",
+      "price": 59.99,
+      "stock": 120,
+      "description": "High-quality wireless headphones with noise cancellation.",
+      "brand": "SoundMax",
+      "rating": 4.5
+    },
+    {
+      "id": 2,
+      "name": "Smartwatch",
+      "category": "Wearables",
+      "price": 129.99,
+      "stock": 80,
+      "description": "A stylish smartwatch with health tracking and notifications.",
+      "brand": "TechTime",
+      "rating": 4.7
+    },
+    {
+      "id": 3,
+      "name": "Mechanical Keyboard",
+      "category": "Accessories",
+      "price": 89.99,
+      "stock": 200,
+      "description": "RGB backlit mechanical keyboard with customizable keys.",
+      "brand": "KeyPro",
+      "rating": 4.6
+    },
+    {
+      "id": 4,
+      "name": "4K Monitor",
+      "category": "Computers",
+      "price": 349.99,
+      "stock": 50,
+      "description": "27-inch 4K UHD monitor with high refresh rate and HDR support.",
+      "brand": "ViewElite",
+      "rating": 4.8
+    },
+    {
+      "id": 5,
+      "name": "Bluetooth Speaker",
+      "category": "Audio",
+      "price": 39.99,
+      "stock": 150,
+      "description": "Portable Bluetooth speaker with deep bass and waterproof design.",
+      "brand": "BassBoom",
+      "rating": 4.4
+    }
+  ]
+  

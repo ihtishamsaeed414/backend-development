@@ -1,6 +1,7 @@
 // 15
 const http  = require('http');
 const fs = require('fs');
+const url = require('url');
 
 const replaceTemplate = (temp, product)=>{
 let output = temp.replace(/{%PRODUCTNAME%}/g, product.productName);
@@ -10,7 +11,7 @@ let output = temp.replace(/{%PRODUCTNAME%}/g, product.productName);
     output = output.replace(/{%NUTRIENTS%}/g, product.nutrients);
     output = output.replace(/{%QUANTITY%}/g, product.quantity);
     output = output.replace(/{%DESCRIPTION%}/g, product.description);
-    output = output.replace(/{%id%}/g, product.id);
+    output = output.replace(/{%ID%}/g, product.id);
     if(!product.organic) output = output.replace(/{%NOT_ORGANIC%}/g, 'not-organic');
 
     return output;
@@ -24,22 +25,24 @@ const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, 'utf-8'); //sync
 const dataObj = JSON.parse(data);
 
 const server = http.createServer((req, res) => {
-  // console.log(req.url); //by default it give /favicon.ico and then the requested URL e.g /overview - hot reload
-  let pathName = req.url;
-  console.log(`Requested URL: ${pathName}`); // Debugging log
+  console.log(req.url); //by default it give /favicon.ico and then the requested URL e.g /overview - hot reload
+  console.log(url.parse(req.url, true));
+  const {query, pathname} = url.parse(req.url, true); //full details of the url, true here is for the query (?id=0)
 
+  if (pathname === "/" || pathname === "/overview") {
 
-  if (pathName === "/" || pathName === "/overview") {
-
-    const cardsHtml = dataObj.map(el => replaceTemplate(tempCard, el));
+    const cardsHtml = dataObj.map(el => replaceTemplate(tempCard, el)).join('');
     const output = tempOverview.replace(`{%PRODUCT_CARDS%}`, cardsHtml);
-    console.log(output);
+    
     res.writeHead(200, {'content-type': 'text/html'});
     res.end(output);
-  } else if (pathName === "/product") {
-    console.log("hi");
-    res.end("This is product page!");
-  }else if (pathName === "/api"){
+
+  } else if (pathname === "/product") {
+    const product = dataObj[query.id]
+    const output = replaceTemplate(tempProduct, product)
+    res.end(output);
+
+  }else if (pathname === "/api"){
     
 res.writeHead(200, {'content-type': 'application/json'});
 res.end(dataObj);
